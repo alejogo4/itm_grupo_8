@@ -2,6 +2,7 @@
 ini_set("date.timezone", "America/Bogota");
 error_reporting(E_ERROR);
 session_start();
+require("seguridad.php");
 class db{
     
     private $connect;
@@ -69,9 +70,11 @@ class db{
 
     }
 
-    function db_ingresar($email,$password){
-        $seguridad = new seguridad();
-        $seguridad->logueo_sesiones($email, $password);
+    function inicioSesion($email,$password){
+        session_start();
+        $_SESSION["email"] = $email;
+        $_SESSION["password"] = $password;
+        header("Location: ../index.php?login=1&email=".$email); //Borrar get variables
     }
 
     function cerrarSesion(){
