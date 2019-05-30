@@ -38,14 +38,16 @@ class db{
         
     }
 
+    function db_ingresar(){
 
+    }
 
     function check_user($Email,$Password, $complete){
         
         $sql = "";
         if($complete){
-            $password_hash = password_hash($Password, PASSWORD_DEFAULT);
-            $sql = "SELECT * FROM usuarios WHERE Email='".$Email."' AND Password='".$password_hash."' ";
+            //$password_hash = password_hash($Password, PASSWORD_DEFAULT);
+            $sql = "SELECT * FROM usuarios WHERE Email='".$Email."' AND Password='".$Password."' ";
         }else{
             $sql = "SELECT * FROM usuarios WHERE Email='".$Email."'";
         }
@@ -76,7 +78,7 @@ class db{
         session_start();
         $_SESSION["email"] = $email;
         $_SESSION["password"] = $password;
-        header("Location: ../index.php?login=1&email=".$email); //Borrar get variables
+        header("Location: ../index.php"); //Borrar get variables
     }
 
     function cerrarSesion(){

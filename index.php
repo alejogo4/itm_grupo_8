@@ -1,12 +1,17 @@
 <?php
     require('db/clases.php');
     $db=new db();
+    $seguridad = new seguridad();
+
+    $seguridad->inactividad();
     $result=$db->seleccionar_perfiles();
     $equipo=$db->seleccionar_equipos();
 
+    $login;
     if($_SESSION["email"] != null && $_SESSION["password"] != null){
         $email = $_GET['email'] ;
         $db->changeAccess(1,$email);
+        $login = $db->seleccionar_registro();
     }
 
 ?>
@@ -34,7 +39,9 @@
 </head>
 
 <body id="page-top">
-
+<div class="contador">
+    <p>Cantidad de visitas : <?php echo $seguridad->cookies_visitas();?></p>
+</div>
 <!-- Modal  Contacto -->
 <div class="modal fade" id="mContacto" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -318,6 +325,7 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
 
                     if($db->check_login()){
                         ?>
+                       
                         <li class="dropdown nav-item">
                             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mi Cuenta <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -335,9 +343,7 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
 
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link js-scroll-trigger" href="php/cerrarSesion.php">Salir</a>
-                        </li>
+                        
 
                         <?php
 
@@ -364,6 +370,18 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
                     <a class="nav-link js-scroll-trigger" href="login.php">Registro</a>
                 </li>
                 <?php } ?>
+                <?php if($db->check_login()){ ?>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="php/cerrarSesion.php">Salir</a>
+                </li>
+                <hr>
+                <?php while ($row = $login->fetch_assoc()) { ?>
+                    <li><?php echo strtoupper($row["nombre1"]) ?></li>
+                <?php 
+                    } 
+                }
+                ?>
+                    
             </ul>
         </div>
     </nav>
@@ -373,7 +391,7 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
 
         <section class="inicio" id="inicio">
             <div class="text">
-                <h3>¡Hola, bienvenido! <?php echo $db->emailSesion; ?></h3>
+                <h3>¡Hola, bienvenido!</h3>
                 <p>Somos un equipo de profesionales apasionados por las tecnologías, nos gusta divertirnos y enfrentar de la mejor manera cada reto.</p>
             </div>
             <img src="./img/inicio.jpg" class="inicio">
@@ -603,7 +621,7 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for this template -->
-    <script src="js/resume.min.js"></script>
+    <script src="js/resume.js"></script>
 
     <script src="js/sweetalert.js"></script>
 
