@@ -62,8 +62,8 @@ class db{
         if($this->check_user($email,$password,false) > 0){
             return false;
         }else{
-            $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro)
-        VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password','$email','$currentDate')";
+            $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro,rol)
+        VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password','$email','$currentDate',1)";
             $result = $this->db_sql($sql);
             return $result;
         }
@@ -151,6 +151,7 @@ class db{
     }
 
     function changeAccess($status,$email){
+        $this->db_open();
         $currentDate = date('Y-m-d H:i:s');
         $sql = "UPDATE usuarios SET acceso = '".$status."', fecha_acceso='".$currentDate."' WHERE email = '".$email."'";
         $result = $this->db_sql($sql);

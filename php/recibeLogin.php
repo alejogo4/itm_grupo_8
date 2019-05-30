@@ -2,7 +2,7 @@
     require '../db/clases.php';
     $Email = strtolower($_POST["Email"]);
     $password = strtolower($_POST["password"]);
-    $db = new DB();
+    $db = new db();
     $result = $db->check_user($Email,$password,true);
     if ($result>0){
         $db->inicioSesion($Email,$password);

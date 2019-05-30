@@ -6,7 +6,7 @@
     $nombre2 = strtolower($_POST["nombre2"]);
     $apellido1 = strtolower($_POST["apellido1"]);
     $apellido2 = strtolower($_POST["apellido2"]);
-    $db = new DB();
+    $db = new db();
     
     if($db->registro_user($email,$password,$nombre1,$nombre2,$apellido1,$apellido2)){
         header("Location: ../login.php?exito=1");
