@@ -41,10 +41,11 @@ class db{
 
 
     function check_user($Email,$Password, $complete){
-
+        
         $sql = "";
         if($complete){
-            $sql = "SELECT * FROM usuarios WHERE Email='".$Email."' AND Password='".$Password."' ";
+            $password_hash = password_hash($Password, PASSWORD_DEFAULT);
+            $sql = "SELECT * FROM usuarios WHERE Email='".$Email."' AND Password='".$password_hash."' ";
         }else{
             $sql = "SELECT * FROM usuarios WHERE Email='".$Email."'";
         }
@@ -59,11 +60,12 @@ class db{
 
     function registro_user($email,$password,$nombre1,$nombre2,$apellido1,$apellido2){
         $currentDate = date('Y-m-d H:i:s');
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
         if($this->check_user($email,$password,false) > 0){
             return false;
         }else{
             $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro)
-        VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password','$email','$currentDate')";
+        VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password_hash','$email','$currentDate')";
             $result = $this->db_sql($sql);
             return $result;
         }
