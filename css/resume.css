@@ -644,3 +644,15 @@ a {
 .tablaContacto {
     background-color: red;
 }
+
+.loginBg{
+    background-image: url('../img/inicio.jpg');
+    background-size: cover;
+    background-color: red;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}

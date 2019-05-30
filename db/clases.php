@@ -11,7 +11,7 @@ class db{
 
 
     function db_open(){
-        $this->connect = new mysqli("localhost","root","","website201901");
+        $this->connect = new mysqli("localhost","root","root","website201901");
         $this->connect->set_charset("utf8");
         /*if($connect->connect_error){
             echo 'El error es '.$connect->connect_error;
@@ -70,6 +70,26 @@ class db{
         VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password_hash','$email','$currentDate')";
             $result = $this->db_sql($sql);
             return $result;
+
+            $paraquien = "$nombre1 $apellido1 <$email>";
+            $asunto = "Registro Exitoso";
+            $mensaje = "
+                Hola $nombre1 <br>
+                Tu registro ha sido exitoso. Bienvenido a nuestro Sitio Web! <br><br>
+
+                A continuación, una copia de los datos que has suministrado: <br><br>
+
+                Nombres: $nombre1 $nombre2 <br>
+                Apellidos: $apellido1 $apellido2 <br>
+                Email: $email <br>
+                <br>
+
+                Te esperamos pronto. <br><br>
+
+                El equipo de PHP ITM
+            ";
+
+            email::enviar($paraquien,$asunto,$mensaje);
         }
 
     }
@@ -182,3 +202,21 @@ class db{
     }
 
 }
+
+
+//Clase para el envío de email
+class email{
+	//Realiza el envío de un email
+	function enviar($paraquien, $asunto, $mensaje){
+		$cabeceras =  'From: juanscales@gmail.com' . "\r\n";
+   		$cabeceras .= 'Reply-To: juanscales@gmail.com' . "\r\n";
+   		$cabeceras .= 'X-Mailer: PHP/' . phpversion();
+ 		$cabeceras .= 'MIME-Version: 1.0' . "\r\n";
+		$cabeceras .= 'Content-type: text/html; charset=utf8' . "\r\n";
+		//Funcion php para enviar un email: mail()
+		mail($paraquien, $asunto, $mensaje, $cabeceras);
+	}
+}
+
+
+?>
