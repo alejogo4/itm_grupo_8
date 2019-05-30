@@ -11,7 +11,7 @@ class db{
 
 
     function db_open(){
-        $this->connect = new mysqli("localhost","root","","website201901");
+        $this->connect = new mysqli("localhost","root","root","website201901");
         $this->connect->set_charset("utf8");
         /*if($connect->connect_error){
             echo 'El error es '.$connect->connect_error;
@@ -38,12 +38,15 @@ class db{
         
     }
 
+    function db_ingresar(){
 
+    }
 
     function check_user($Email,$Password, $complete){
-
+        
         $sql = "";
         if($complete){
+            //$password_hash = password_hash($Password, PASSWORD_DEFAULT);
             $sql = "SELECT * FROM usuarios WHERE Email='".$Email."' AND Password='".$Password."' ";
         }else{
             $sql = "SELECT * FROM usuarios WHERE Email='".$Email."'";
@@ -59,13 +62,39 @@ class db{
 
     function registro_user($email,$password,$nombre1,$nombre2,$apellido1,$apellido2){
         $currentDate = date('Y-m-d H:i:s');
+        $password_hash = password_hash($password, PASSWORD_DEFAULT);
         if($this->check_user($email,$password,false) > 0){
             return false;
         }else{
+<<<<<<< HEAD
             $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro,rol)
         VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password','$email','$currentDate',1)";
+=======
+            $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro)
+        VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password_hash','$email','$currentDate')";
+>>>>>>> 8cefdb3707f683f3ded443ec9a813a41083870ac
             $result = $this->db_sql($sql);
             return $result;
+
+            $paraquien = "$nombre1 $apellido1 <$email>";
+            $asunto = "Registro Exitoso";
+            $mensaje = "
+                Hola $nombre1 <br>
+                Tu registro ha sido exitoso. Bienvenido a nuestro Sitio Web! <br><br>
+
+                A continuación, una copia de los datos que has suministrado: <br><br>
+
+                Nombres: $nombre1 $nombre2 <br>
+                Apellidos: $apellido1 $apellido2 <br>
+                Email: $email <br>
+                <br>
+
+                Te esperamos pronto. <br><br>
+
+                El equipo de PHP ITM
+            ";
+
+            email::enviar($paraquien,$asunto,$mensaje);
         }
 
     }
@@ -74,7 +103,7 @@ class db{
         session_start();
         $_SESSION["email"] = $email;
         $_SESSION["password"] = $password;
-        header("Location: ../index.php?login=1&email=".$email); //Borrar get variables
+        header("Location: ../index.php"); //Borrar get variables
     }
 
     function cerrarSesion(){
@@ -179,3 +208,21 @@ class db{
     }
 
 }
+
+
+//Clase para el envío de email
+class email{
+	//Realiza el envío de un email
+	function enviar($paraquien, $asunto, $mensaje){
+		$cabeceras =  'From: juanscales@gmail.com' . "\r\n";
+   		$cabeceras .= 'Reply-To: juanscales@gmail.com' . "\r\n";
+   		$cabeceras .= 'X-Mailer: PHP/' . phpversion();
+ 		$cabeceras .= 'MIME-Version: 1.0' . "\r\n";
+		$cabeceras .= 'Content-type: text/html; charset=utf8' . "\r\n";
+		//Funcion php para enviar un email: mail()
+		mail($paraquien, $asunto, $mensaje, $cabeceras);
+	}
+}
+
+
+?>
