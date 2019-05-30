@@ -5,11 +5,14 @@
     $db = new db();
     $result = $db->check_user($Email,$password,true);
     if ($result>0){
-        $db->inicioSesion($Email,$password);
+        $recordar = false;
+        if(isset($_POST['recordar_email'])){
+            $recordar = true;
+        }
         
-        
+        $db->db_ingresar($Email,$password,true,$recordar);        
     }else{
-        if($db->check_user($Email, " ",false)){
+        if($db->check_user($Email," ",false)){
             header("Location: ../login.php?Error=2");
         }else{
             header("Location: ../login.php?Error=1");

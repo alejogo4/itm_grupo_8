@@ -2,7 +2,11 @@
 ini_set("date.timezone", "America/Bogota");
 error_reporting(E_ERROR);
 session_start();
-require("seguridad.php");
+
+//CAMBIAR LUEGO
+require(dirname(__DIR__)."/db/seguridad.php");
+require(dirname(__DIR__).'/db/email.php');
+require(dirname(__DIR__).'/email_template/email_registro.php');
 class db{
     
     private $connect;
@@ -11,8 +15,10 @@ class db{
 
 
     function db_open(){
-        $this->connect = new mysqli("localhost","root","root","website201901");
+        //
+        $this->connect = new mysqli("localhost","root","","website201901");
         $this->connect->set_charset("utf8");
+        //pass: Margin2018! website201901.db.6317658.ff0.hostedresource.net
         /*if($connect->connect_error){
             echo 'El error es '.$connect->connect_error;
         }*/
@@ -38,8 +44,19 @@ class db{
         
     }
 
-    function db_ingresar(){
+    function db_ingresar($Email,$password, $home=false,$recordar=false){
+        $seguridad = new seguridad();
+        $seguridad->logueo_sesiones($Email,$password);
 
+        
+        if($recordar){
+          
+             $seguridad->cookies_logueo($Email);
+        }
+        if($home){
+            header("Location: ../index.php"); //Borrar get variables
+        }
+        
     }
 
     function check_user($Email,$Password, $complete){
@@ -62,49 +79,33 @@ class db{
 
     function registro_user($email,$password,$nombre1,$nombre2,$apellido1,$apellido2){
         $currentDate = date('Y-m-d H:i:s');
-        $password_hash = password_hash($password, PASSWORD_DEFAULT);
+        //$password_hash = password_hash($password, PASSWORD_DEFAULT);
         if($this->check_user($email,$password,false) > 0){
             return false;
         }else{
-<<<<<<< HEAD
+
+            
+            
+            $email_registro = new email_registro();
+            $mensaje = $email_registro->template($nombre1,$nombre2,$apellido1,$apellido2,$email);
+            
+            /*$email = new email();
+            $email->enviar('alejogo49@gmail.com',$email,'Registro Exitoso | Bienvenida', 'Hola');
+            */
             $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro,rol)
         VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password','$email','$currentDate',1)";
-=======
-            $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro)
-        VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password_hash','$email','$currentDate')";
->>>>>>> 8cefdb3707f683f3ded443ec9a813a41083870ac
+
+           
+
             $result = $this->db_sql($sql);
             return $result;
 
-            $paraquien = "$nombre1 $apellido1 <$email>";
-            $asunto = "Registro Exitoso";
-            $mensaje = "
-                Hola $nombre1 <br>
-                Tu registro ha sido exitoso. Bienvenido a nuestro Sitio Web! <br><br>
-
-                A continuación, una copia de los datos que has suministrado: <br><br>
-
-                Nombres: $nombre1 $nombre2 <br>
-                Apellidos: $apellido1 $apellido2 <br>
-                Email: $email <br>
-                <br>
-
-                Te esperamos pronto. <br><br>
-
-                El equipo de PHP ITM
-            ";
-
-            email::enviar($paraquien,$asunto,$mensaje);
+            
         }
 
     }
 
-    function inicioSesion($email,$password){
-        session_start();
-        $_SESSION["email"] = $email;
-        $_SESSION["password"] = $password;
-        header("Location: ../index.php"); //Borrar get variables
-    }
+   
 
     function cerrarSesion(){
         session_start();
@@ -207,21 +208,6 @@ class db{
         return $this->$name;
     }
 
-}
-
-
-//Clase para el envío de email
-class email{
-	//Realiza el envío de un email
-	function enviar($paraquien, $asunto, $mensaje){
-		$cabeceras =  'From: juanscales@gmail.com' . "\r\n";
-   		$cabeceras .= 'Reply-To: juanscales@gmail.com' . "\r\n";
-   		$cabeceras .= 'X-Mailer: PHP/' . phpversion();
- 		$cabeceras .= 'MIME-Version: 1.0' . "\r\n";
-		$cabeceras .= 'Content-type: text/html; charset=utf8' . "\r\n";
-		//Funcion php para enviar un email: mail()
-		mail($paraquien, $asunto, $mensaje, $cabeceras);
-	}
 }
 
 

@@ -92,11 +92,14 @@ if (isset($_GET["exito"]) && $_GET["exito"] == "0") {
 			<form method="post" action="php/recibeLogin.php" class="sign-in-htm">
 				<div class="group">
 					<label for="user" class="label">Email</label>
-					<input id="user" name="Email" type="email" class="input">
+					<input value="<?php echo isset($_COOKIE['recordar_usuario'])?$_COOKIE["recordar_usuario"]:"" ?>" id="user" name="Email" type="email" class="input">
 				</div>
 				<div class="group">
 					<label for="pass" class="label">Contraseña</label>
 					<input id="pass" name="password" type="password" class="input" data-type="password">
+				</div>
+				<div class="group">
+					<label for="pass" class="label "><input type="checkbox" name="recordar_email"> Recordar Usuario</label>
 				</div>
 				<div class="group">
 					<input type="submit" class="button" value="Ingresar">
