@@ -88,6 +88,20 @@ p.lead {
     outline-color: #F50057;
 }
 
+.contador {
+    width: 120px;
+    height: 60px;
+    background: white;
+    position: fixed;
+    right: 0px;
+    top: 45%;
+    z-index: 999;
+    padding: 5px;
+    border-radius: 5px 0px 0px 5px;
+    text-align: center;
+    box-shadow: 1px 1px 20px 5px rgba(0, 0, 0, 0.295);
+}
+
 @media (min-width: 992px) {
     #sideNav {
         text-align: center;
@@ -629,4 +643,16 @@ a {
 
 .tablaContacto {
     background-color: red;
+}
+
+.loginBg{
+    background-image: url('../img/inicio.jpg');
+    background-size: cover;
+    background-color: red;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
 }

@@ -24,13 +24,15 @@
 </head>
 
 <body id="page-top" style="padding:0px; overflow:hidden">
-<a class="navbar-brand js-scroll-trigger logoLogin" href="#page-top">
+<!-- <a class="navbar-brand js-scroll-trigger logoLogin" href="#page-top">
       <span class="d-block d-lg-none">Challenge Overcome</span>
       <span class="d-none d-lg-block">
-        <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="img/logo.svg" alt="">
+        <img class="position:fixed; top: 0; left:0; right:0; bottom:0" src="img/inicio.jpg" alt="">
         <h2>Equipo 8</h2>
       </span>
-</a>
+</a> -->
+
+<div class="loginBg"></div>
 
 <?php
       if (isset($_GET["Error"]) && $_GET["Error"]== "1") {
