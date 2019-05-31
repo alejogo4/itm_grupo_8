@@ -2,7 +2,6 @@
 ini_set("date.timezone", "America/Bogota");
 error_reporting(E_ERROR);
 session_start();
-
 //CAMBIAR LUEGO
 require(dirname(__DIR__)."/db/seguridad.php");
 require(dirname(__DIR__).'/db/email.php');
@@ -157,6 +156,22 @@ class db{
         }else{
             return false;
         }
+    }
+
+    function ReestablecerContrasena($Email){
+        if($this->BuscarEmail($Email) > 0){
+            $sql = "UPDATE usuarios SET password = 'Prueba.1234' WHERE email = '".$Email."'";
+            $result = $this->db_sql($sql);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+      function BuscarEmail($Email){
+        $sql = "SELECT * FROM usuarios WHERE email = '".$Email."'";
+        $result = $this->db_sql($sql);
+        return $result;
     }
 
     function addInfo($edad, $genero, $ocupacion){

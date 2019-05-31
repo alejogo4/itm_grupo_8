@@ -45,6 +45,26 @@
 ?>
 
 <?php
+      if (isset($_GET["NewPass"]) && $_GET["NewPass"]== "1") {
+?>
+
+<div class="alert alert-success"> Contraseña Reestablecida Correctamente</div>
+
+<?php
+	}
+?>
+
+<?php
+      if (isset($_GET["NewPass"]) && $_GET["NewPass"]== "0") {
+?>
+
+<div class="alert alert-danger"> La Contraseña no fue reestablecida, por favor verifique sus datos</div>
+
+<?php
+	}
+?>
+
+<?php
 if (isset($_GET["Error"]) && $_GET["Error"]== "2") {
     ?>
 
@@ -103,6 +123,7 @@ if (isset($_GET["exito"]) && $_GET["exito"] == "0") {
 					<label for="pass" class="label "><input type="checkbox" name="recordar_email"> Recordar Usuario</label>
 				</div>
 				<div class="group">
+					<center><a href="php/ReestablecerContrasena.php">Olvidé Mi Contraseña</a></center>
 					<input type="submit" class="button" value="Ingresar">
 				</div>
 				<div class="hr"></div>
@@ -124,6 +145,7 @@ if (isset($_GET["exito"]) && $_GET["exito"] == "0") {
 					<div class =group><label for="Primer_Apellido" class="label">Primer Apellido</label>
 					<input id="Primer_Apellido" type="text" class="input" name="apellido1" required></div>
 
+					>
 					<div class =group><label for="Segundo_Apellido" class="label">Segundo Apellido</label>
 					<input id="Segundo_Apellido" type="text" class="input" name="apellido2" required></div>
 				
