@@ -62,6 +62,23 @@ p.lead {
     margin-right: 1rem;
 }
 
+.reporte {
+    font-weight: 800;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .5);
+    -webkit-appearance: none !important;
+}
+
+.modal-lg {
+    max-width: 1000px !important;
+}
+
+.reporte:hover {
+    color: rgba(255, 255, 255, .8);
+    text-decoration: none !important;
+}
+
 .social-icons a:last-child {
     margin-right: 0;
 }
@@ -645,7 +662,7 @@ a {
     background-color: red;
 }
 
-.loginBg{
+.loginBg {
     background-image: url('../img/inicio.jpg');
     background-size: cover;
     background-color: red;

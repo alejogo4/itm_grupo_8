@@ -1,19 +1,24 @@
 <?php
     require('db/clases.php');
+    
+    require('model/Usuario.php');
     $db=new db();
     $seguridad = new seguridad();
 
     $seguridad->inactividad();
     $result=$db->seleccionar_perfiles();
     $equipo=$db->seleccionar_equipos();
-
-    $login;
+    $user;
     if($_SESSION["email"] != null && $_SESSION["password"] != null){
-        $email = $_GET['email'] ;
+       
+        $email = $_SESSION["email"];
         $db->changeAccess(1,$email);
         $login = $db->seleccionar_registro();
-    }
+        $data_user = $login->fetch_all()[0];
+        $user = new usuario($data_user[2],$data_user[3],$data_user[4],$data_user[5],$data_user[6]);
 
+    }
+   
 ?>
 
 <!DOCTYPE html>
@@ -72,6 +77,63 @@
                     <td><?php echo $row["fecha"];?></td>
                     <td>
                         <button class="btn btn-info" method="get" data-toggle="modal" data-target="#mcontacto">Ver Mas</button>
+                    </td>
+                </tr>
+            <?php
+            }
+            
+            ?>
+            </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal  reporte -->
+<div class="modal fade" id="mReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Reporte de administrador</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            <table class="table" width="100%">
+                <thead>
+                    <th>Nombre Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acceso</th>
+                    <th>Fecha_acceso</th>
+                    <th>Acción</th>
+                </thead>
+            <?php
+                
+                $ContactoResult= $db->seleccionar_registros();
+                while ($row = $ContactoResult->fetch_assoc()) {
+            ?>
+                <tr>
+                    <td><?php echo $row["nombre1"]." ".$row["apellido1"];?></td>
+                    <td><?php echo $row["email"];?></td>
+                    <td><?php echo $seguridad->logueo_autorizado($row["rol"]);?></td>
+                    <td>
+                    <?php echo ($row["estado"] == 1)? 'Activo': 'Inactivo';?>
+                    </td>
+                    <td>
+                    <?php echo ($row["acceso"] == 1)? 'Logueado': 'No Logueado';?>
+                    </td>
+                    <td>
+                        <?php echo $row["fecha_acceso"];?>
+                    </td>
+                    <td>
+                        <?php echo '<btn class="btn btn-success">editar</button> ' ?>
                     </td>
                 </tr>
             <?php
@@ -323,7 +385,8 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
             <ul class="navbar-nav">
                 <?php
 
-                    if($db->check_login()){
+                        if($seguridad->logueo_autorizado($user->rol) == 'usuario_comun' ||
+                        $seguridad->logueo_autorizado($user->rol) == 'administrador'){
                         ?>
                        
                         <li class="dropdown nav-item">
@@ -348,6 +411,16 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
                         <?php
 
                     }
+
+                    if($seguridad->logueo_autorizado($user->rol) == 'administrador'){
+                ?>
+
+                <li class="nav-item">
+                    <a type="button" class="reporte" data-toggle="modal" data-target="#mReporte" href="#inicio">Reporte Usuarios</a>
+                    
+                </li>
+                <?php
+                    }
                 ?>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#inicio">Inicio</a>
@@ -370,15 +443,16 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
                     <a class="nav-link js-scroll-trigger" href="login.php">Registro</a>
                 </li>
                 <?php } ?>
-                <?php if($db->check_login()){ ?>
+                <?php if($seguridad->logueo_autorizado($user->rol) == 'usuario_comun' ||
+                        $seguridad->logueo_autorizado($user->rol) == 'administrador'){ ?>
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="php/cerrarSesion.php">Salir</a>
                 </li>
                 <hr>
-                <?php while ($row = $login->fetch_assoc()) { ?>
-                    <li><?php echo strtoupper($row["nombre1"]) ?></li>
+                
+                    <li><?php echo strtoupper($user->nombre1. " ".$user->nombre2); ?></li>
                 <?php 
-                    } 
+                    
                 }
                 ?>
                     
@@ -391,7 +465,7 @@ if (isset($_GET["exito"]) && $_GET["exito"]==2) {
 
         <section class="inicio" id="inicio">
             <div class="text">
-                <h3>¡Hola, bienvenido!</h3>
+                <h3>¡Hola, bienvenido! <?php echo strtoupper($user->nombre1." ".$user->nombre2);?></h3>
                 <p>Somos un equipo de profesionales apasionados por las tecnologías, nos gusta divertirnos y enfrentar de la mejor manera cada reto.</p>
             </div>
             <img src="./img/inicio.jpg" class="inicio">

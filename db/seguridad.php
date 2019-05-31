@@ -11,8 +11,18 @@ class seguridad{
     }
 
 
-    function logueo_autorizado(){
-        //para validar el logueo y acceso autorizado a páginas 
+    function logueo_autorizado($rol){
+        //para validar el logueo y acceso autorizado a páginas
+        $txtRol="";
+        if($rol == "1"){
+            $txtRol = 'usuario_comun';
+        }elseif($rol=="0"){
+            $txtRol ='administrador';
+        }else{
+            return;
+        }
+        
+        return $txtRol;
     }
 
     function inactividad(){
@@ -28,8 +38,6 @@ class seguridad{
         }
         $_SESSION['tiempo']=time(); //Si hay actividad seteamos el valor al tiempo actual
     }
-
-
 
 
     function salir(){

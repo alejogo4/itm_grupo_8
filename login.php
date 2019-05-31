@@ -88,6 +88,7 @@ if (isset($_GET["exito"]) && $_GET["exito"] == "0") {
 	<div class="login-html">
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">INGRESAR</label>
 		<input id="tab-2" type="radio" name="tab" class="for-pwd"><label for="tab-2" class="tab">Registro</label>
+		
 		<div class="login-form">
 			<form method="post" action="php/recibeLogin.php" class="sign-in-htm">
 				<div class="group">
@@ -107,8 +108,6 @@ if (isset($_GET["exito"]) && $_GET["exito"] == "0") {
 				<div class="hr"></div>
             </form>
 			<div class="for-pwd-htm">
-
-				
 				<form method="post" action="php/registrousuario.php">
 					<div class =group><label for="user" class="label">Email</label>
 					<input id="user" type="email" class="input" name="email" required></div>

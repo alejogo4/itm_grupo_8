@@ -142,6 +142,12 @@ class db{
         return $result;
     }
 
+    function seleccionar_registros(){
+        $sql = "SELECT * FROM usuarios";
+        $result = $this->db_sql($sql);
+        return $result;
+    }
+
     function changePassword($currentPassword,$newPassword){
         $this->putSessions();
         if($this->check_user($this->emailSesion,$currentPassword,true) > 0){
@@ -183,7 +189,7 @@ class db{
     function changeAccess($status,$email){
         $this->db_open();
         $currentDate = date('Y-m-d H:i:s');
-        $sql = "UPDATE usuarios SET acceso = '".$status."', fecha_acceso='".$currentDate."' WHERE email = '".$email."'";
+        $sql = "UPDATE usuarios SET acceso='$status', fecha_acceso='".$currentDate."' WHERE email = '".$email."'";
         $result = $this->db_sql($sql);
         $this->putSessions();
         return $result;

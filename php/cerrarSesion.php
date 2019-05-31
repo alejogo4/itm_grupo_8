@@ -9,8 +9,4 @@ if($db->changeAccess(0,$_SESSION["email"])){
 }
 
 
-
-    if($db->changeAccess(0,$_SESSION["email"])){
-        $db->cerrarSesion();
-    }
 ?>
