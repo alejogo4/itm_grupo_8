@@ -450,8 +450,8 @@ class email_contacto{
       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
   </body>
   
-  </html>'
-    ';
+  </html>';
+    
   return $this->mensaje;
   }
   

@@ -17,7 +17,7 @@ class db{
         //
         $this->connect = new mysqli("localhost","root","root","website201901");
         $this->connect->set_charset("utf8");
-        //pass: Margin2018! website201901.db.6317658.ff0.hostedresource.net
+        //pass:website201901.db.6317658.ff0.hostedresource.net website201901 Margin2018! website201901
         /*if($connect->connect_error){
             echo 'El error es '.$connect->connect_error;
         }*/
@@ -88,9 +88,9 @@ class db{
             $email_registro = new email_registro();
             $mensaje = $email_registro->template($nombre1,$nombre2,$apellido1,$apellido2,$email);
             
-            /*$email = new email();
-            $email->enviar('alejogo49@gmail.com',$email,'Registro Exitoso | Bienvenida', 'Hola');
-            */
+            $email = new email();
+            $email->enviar('alejogo49@gmail.com',$email,'Registro Exitoso | Bienvenida', $mensaje);
+            
             $sql = "INSERT INTO usuarios (nombre1,nombre2,apellido1,apellido2,password,email,fecha_registro,rol)
         VALUES ('$nombre1' ,'$nombre2','$apellido1','$apellido2','$password','$email','$currentDate',1)";
 
