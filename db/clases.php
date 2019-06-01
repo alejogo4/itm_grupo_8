@@ -159,19 +159,13 @@ class db{
     }
 
     function ReestablecerContrasena($Email){
-        if($this->BuscarEmail($Email) > 0){
+        if($this->check_user($Email,"",false) > 0){
             $sql = "UPDATE usuarios SET password = 'Prueba.1234' WHERE email = '".$Email."'";
             $result = $this->db_sql($sql);
             return true;
         }else{
             return false;
         }
-    }
-
-      function BuscarEmail($Email){
-        $sql = "SELECT * FROM usuarios WHERE email = '".$Email."'";
-        $result = $this->db_sql($sql);
-        return $result;
     }
 
     function addInfo($edad, $genero, $ocupacion){
