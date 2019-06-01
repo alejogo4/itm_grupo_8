@@ -8,6 +8,7 @@ require(dirname(__DIR__).'/db/email.php');
 require(dirname(__DIR__).'/email_template/email_registro.php');
 require(dirname(__DIR__).'/email_template/email_contacto.php');
 require(dirname(__DIR__).'/email_template/email_contrasena.php');
+
 class db{
     
     private $connect;
@@ -18,7 +19,7 @@ class db{
     function db_open(){
         //
         //$this->connect = new mysqli("localhost","root","","website201901");
-        $this->connect = new mysqli("website201901.db.6317658.ff0.hostedresource.net","website201901","Margin2018!","website201901");
+        $this->connect = new mysqli("localhost","root","","website201901");
         $this->connect->set_charset("utf8");
         //pa "website201901.db.6317658.ff0.hostedresource.net","website201901","Margin2018!" , "website201901"
         /*if($connect->connect_error){
@@ -139,7 +140,7 @@ class db{
 
 
     function seleccionar_registro(){
-        $sql = "SELECT * FROM usuarios WHERE email='".$this->emailSesion."'";
+        $sql = "SELECT * FROM usuarios WHERE email='".$this->emailSesion."' LIMIT 1";
         $result = $this->db_sql($sql);
         return $result;
     }
@@ -166,6 +167,12 @@ class db{
         $seguridad = new seguridad();
         
         $passAleatoria = $seguridad->pass_aleatorio();
+
+        $email_contacto = new email_contrasena();
+        $mensaje = $email_contacto->template($Email,$passAleatoria);
+        $mail_m = new email();
+        $mail_m->enviar('alejogo49@gmail.com',$Email,'Registro de contacto', $mensaje);
+
         if($this->check_user($Email,"",false) > 0){
             $sql = "UPDATE usuarios SET password = '".$passAleatoria."'  WHERE email = '".$Email."'";
             $result = $this->db_sql($sql);
