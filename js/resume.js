@@ -38,6 +38,8 @@
 
     })
 
+    <<
+    << << < HEAD
 
 
 
@@ -62,3 +64,14 @@ function traerDatos(emails) {
 
     })
 }
+
+
+
+$(document).ready(function() {
+    $('#recordar').addClass(' mostrar');
+
+    $('.closerecordar').click(function() {
+        $('#recordar').removeClass(' mostrar');
+    });
+
+});
