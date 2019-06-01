@@ -14,8 +14,11 @@
         $email = $_SESSION["email"];
         $db->changeAccess(1,$email);
         $login = $db->seleccionar_registro();
-        $data_user = $login->fetch_all()[0];
-        $user = new usuario($data_user[2],$data_user[3],$data_user[4],$data_user[5],$data_user[6]);
+        while($row = $login->fetch_assoc()){
+            $user = new usuario($row["nombre1"],$row["nombre2"],$row["apellido1"],$row["apellido2"],$row["rol"]);
+        }
+        //$data_user = $login->fetch_all()[0];
+        //echo "<hr>";
 
     }
    

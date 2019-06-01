@@ -31,7 +31,7 @@ class seguridad{
         if (!isset($_SESSION['tiempo'])) {
             $_SESSION['tiempo']=time();
         }
-        else if (time() - $_SESSION['tiempo'] > 200) { //Inactividad de 2 segundos
+        else if (time() - $_SESSION['tiempo'] > 20) { //Inactividad de 2 segundos
             session_destroy();
             header("Location: index.php");
             die();  

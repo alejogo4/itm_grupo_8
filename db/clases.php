@@ -18,8 +18,8 @@ class db{
 
     function db_open(){
         //
-        //$this->connect = new mysqli("localhost","root","","website201901");
         $this->connect = new mysqli("localhost","root","","website201901");
+        //$this->connect = new mysqli("localhost","root","","website201901");
         $this->connect->set_charset("utf8");
         //pa "website201901.db.6317658.ff0.hostedresource.net","website201901","Margin2018!" , "website201901"
         /*if($connect->connect_error){
@@ -140,7 +140,7 @@ class db{
 
 
     function seleccionar_registro(){
-        $sql = "SELECT * FROM usuarios WHERE email='".$this->emailSesion."' LIMIT 1";
+        $sql = "SELECT * FROM usuarios WHERE email='".$this->emailSesion."'";
         $result = $this->db_sql($sql);
         return $result;
     }
