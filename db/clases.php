@@ -6,6 +6,8 @@ session_start();
 require(dirname(__DIR__)."/db/seguridad.php");
 require(dirname(__DIR__).'/db/email.php');
 require(dirname(__DIR__).'/email_template/email_registro.php');
+require(dirname(__DIR__).'/email_template/email_contacto.php');
+require(dirname(__DIR__).'/email_template/email_contrasena.php');
 class db{
     
     private $connect;
@@ -15,7 +17,8 @@ class db{
 
     function db_open(){
         //
-        $this->connect = new mysqli("localhost","root","","website201901");
+        //$this->connect = new mysqli("localhost","root","","website201901");
+        $this->connect = new mysqli("website201901.db.6317658.ff0.hostedresource.net","website201901","Margin2018!","website201901");
         $this->connect->set_charset("utf8");
         //pass:website201901.db.6317658.ff0.hostedresource.net website201901 Margin2018! website201901
         /*if($connect->connect_error){
@@ -183,7 +186,12 @@ class db{
         $this->putSessions();
         $sql = "INSERT INTO contacto (email,nombre1,nombre2,apellido1,apellido2,ciudad,asunto,mensaje)
         VALUES ('$this->emailSesion' ,'$nombre1','$nombre2','$apellido1','$apellido2','$ciudad','$asunto','$mensaje')";
-        $result = $this->db_sql($sql);        
+        $result = $this->db_sql($sql);
+        
+        $email_contacto = new email_contacto();
+        $mensaje = $email_contacto->template($nombre1,$nombre2,$apellido1,$apellido2,$email,$ciudad,$asunto,$mensaje);
+        $mail_m = new email();
+        $mail_m->enviar('alejogo49@gmail.com',$email,'Registro de contacto', $mensaje);        
         return $result;
     }
     
