@@ -39,3 +39,13 @@
     })
 
 })(jQuery); // End of use strict
+
+
+$(document).ready(function(){
+    $('#recordar').addClass(' mostrar');
+
+    $('.closerecordar').click(function(){
+        $('#recordar').removeClass(' mostrar');
+    });
+
+});
