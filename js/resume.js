@@ -38,4 +38,27 @@
 
     })
 
+
+
+
 })(jQuery); // End of use strict
+
+
+function traerDatos(emails) {
+    $.post("php/datos_user.php", { email: emails }, function(datos) {
+        var data = JSON.parse(datos);
+        for (var i = 0; i < data.length; i++) {
+
+            if (emails == data[i].email) {
+                console.log(data[i]);
+            }
+        }
+
+        //Si entra en esta funcion limpio los campos
+        /*$("#asuntoI").val("");
+        $("#mensajeI").val("");
+
+        $(".mensajeExito").fadeIn(1000).fadeOut(6000);*/
+
+    })
+}

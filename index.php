@@ -113,11 +113,14 @@
         </div>
     </div>
 </div>
-</div>
 
 <?php
     }
 ?>
+
+
+
+
 <!-- Modal  reporte -->
 <div class="modal fade " id="mReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -159,7 +162,7 @@
                         <?php echo $row["fecha_acceso"];?>
                     </td>
                     <td>
-                        <?php echo '<btn class="btn btn-success">editar</button> ' ?>
+                        <?php echo '<btn class="btn btn-success" onclick="traerDatos('."'".$row["email"]."'".')" data-toggle="modal" data-target="#acceso">editar</button> '; ?>
                     </td>
                 </tr>
             <?php
@@ -173,6 +176,39 @@
         </div>
     </div>
 </div>
+</div>
+
+<!--
+    Modal Cambiar acceso
+-->
+<div class="modal fade" id="acceso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mi Perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <table class="table" width="100%">
+                <thead>
+                    <th>Nombre Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acceso</th>
+                    <th>Fecha_acceso</th>
+                    <th>Acción</th>
+                </thead>
+                <tbody class="data_user">
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
 </div>
 
 <!-- Modal  Mi perfil-->
