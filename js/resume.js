@@ -43,15 +43,27 @@
 
 
 function traerDatos(emails) {
+    var string;
     $.post("php/datos_user.php", { email: emails }, function(datos) {
         var data = JSON.parse(datos);
         for (var i = 0; i < data.length; i++) {
 
             if (emails == data[i].email) {
                 console.log(data[i]);
+                string += " <tr>";
+                string += "<td>" + data[i].nombre1 + " " + data[i].apellido1 + "</td>";
+                string += "<td>" + data[i].email + "</td>";
+                string += "<td>" + data[i].rol + "</td>";
+                string += "<td>" + data[i].fecha_acceso + "</td>";
+                string += "<td>" + data[i].nombre1 + "</td>";
+                string += "<td><a class='btn btn-danger' href='php/desactivarUser.php?email=" + data[i].email +
+                    "'>Desactivar</a></td>";
+                string += "</tr>";
             }
         }
 
+        $(".data_user").html("");
+        $(".data_user").html(string);
         //Si entra en esta funcion limpio los campos
         /*$("#asuntoI").val("");
         $("#mensajeI").val("");

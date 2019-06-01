@@ -196,7 +196,6 @@
                     <th>Email</th>
                     <th>Rol</th>
                     <th>Estado</th>
-                    <th>Acceso</th>
                     <th>Fecha_acceso</th>
                     <th>Acción</th>
                 </thead>
