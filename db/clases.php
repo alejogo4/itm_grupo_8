@@ -15,7 +15,7 @@ class db{
 
     function db_open(){
         //
-        $this->connect = new mysqli("localhost","root","root","website201901");
+        $this->connect = new mysqli("localhost","root","","website201901");
         $this->connect->set_charset("utf8");
         //pass:website201901.db.6317658.ff0.hostedresource.net website201901 Margin2018! website201901
         /*if($connect->connect_error){

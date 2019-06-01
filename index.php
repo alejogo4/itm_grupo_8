@@ -93,9 +93,6 @@
 </div>
 
 <!-- Modal  Contacto -->
-
-
-
  <?php 
     
     if (isset($_SESSION["recordar"]) && $_SESSION["recordar"]=="1"){ 

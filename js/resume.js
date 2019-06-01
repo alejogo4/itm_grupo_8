@@ -38,10 +38,6 @@
 
     })
 
-    <<
-    << << < HEAD
-
-
 
 })(jQuery); // End of use strict
 

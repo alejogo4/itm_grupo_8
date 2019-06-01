@@ -14,7 +14,9 @@
             $usuario = array(
                 "nombre1" => $dato["nombre1"],
                 "apellido1"=>$dato["apellido1"],
-                "email"=>$dato["email"]
+                "email"=>$dato["email"],
+                "rol" => $dato["rol"],
+                "fecha_acceso"=> $dato["fecha_acceso"]
             );
         
 		
