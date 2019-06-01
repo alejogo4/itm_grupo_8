@@ -63,7 +63,7 @@ class db{
         $sql = "";
         if($complete){
             //$password_hash = password_hash($Password, PASSWORD_DEFAULT);
-            $sql = "SELECT * FROM usuarios WHERE Email='".$Email."' AND Password='".$Password."' ";
+            $sql = "SELECT * FROM usuarios WHERE Email='".$Email."' AND Password='".$Password."' AND estado=1";
         }else{
             $sql = "SELECT * FROM usuarios WHERE Email='".$Email."'";
         }
@@ -148,6 +148,7 @@ class db{
     }
 
     function changePassword($currentPassword,$newPassword){
+        $_SESSION["olvidar"]="0";
         $this->putSessions();
         if($this->check_user($this->emailSesion,$currentPassword,true) > 0){
             $sql = "UPDATE usuarios SET password = '".$newPassword."' WHERE email = '".$this->emailSesion."'";
@@ -159,8 +160,11 @@ class db{
     }
 
     function ReestablecerContrasena($Email){
+        $seguridad = new seguridad();
+        
+        $passAleatoria = $seguridad->pass_aleatorio();
         if($this->check_user($Email,"",false) > 0){
-            $sql = "UPDATE usuarios SET password = 'Prueba.1234' WHERE email = '".$Email."'";
+            $sql = "UPDATE usuarios SET password = '".$passAleatoria."'  WHERE email = '".$Email."'";
             $result = $this->db_sql($sql);
             return true;
         }else{

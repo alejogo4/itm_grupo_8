@@ -50,7 +50,6 @@ class seguridad{
         $valorAleatorio = substr($cadena, count($cadena));
         $pass_temp = substr(str_shuffle($valorAleatorio),-6);
         return $pass_temp;
-
     }
 
 

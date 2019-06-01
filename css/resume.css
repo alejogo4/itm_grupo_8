@@ -523,6 +523,11 @@ a {
     background: #F50057;
 }
 
+.olvidar {
+    background: transparent !important;
+    text-decoration: underline;
+}
+
 .login-form .group label .icon {
     width: 15px;
     height: 15px;

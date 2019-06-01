@@ -68,7 +68,7 @@
 if (isset($_GET["Error"]) && $_GET["Error"]== "2") {
     ?>
 
-    <div class="alert alert-danger"> <a href="?exito=3"> Recordar o recuperar la contraseña </a></div>
+    <div class="alert alert-danger"> Problablemente estes inactivo o debas <a href="?exito=3"> recuperar la contraseña </a></div>
 
     <?php
 }
@@ -123,8 +123,10 @@ if (isset($_GET["exito"]) && $_GET["exito"] == "0") {
 					<label for="pass" class="label "><input type="checkbox" name="recordar_email"> Recordar Usuario</label>
 				</div>
 				<div class="group">
-					<center><a href="php/ReestablecerContrasena.php">Olvidé Mi Contraseña</a></center>
-					<input type="submit" class="button" value="Ingresar">
+					
+					<input type="submit" class="button" name="ingresar" value="Ingresar">
+					<br>
+					<input type="submit" class="button olvidar" name="olvidar" value="Reestrablecer mi Contraseña">
 				</div>
 				<div class="hr"></div>
             </form>

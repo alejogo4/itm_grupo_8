@@ -91,9 +91,35 @@
     </div>
 </div>
 </div>
+<!-- Modal  Contacto -->
+<?php 
+    
+    if (isset($_SESSION["recordar"]) && $_SESSION["recordar"]=="1"){ 
+    ?>
+<div class="modal fade" id="recordar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Mi Perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Recuerde cambiar la contraseña desde las opciones del usaurio "Mis datos"</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+</div>
+</div>
 
+<?php
+    }
+?>
 <!-- Modal  reporte -->
-<div class="modal fade" id="mReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade " id="mReporte" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
